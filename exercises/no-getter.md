@@ -27,3 +27,5 @@ The program should take as input the path to the source code of the project. It 
 Include in this repository the code of your application. Remove all unnecessary files like compiled binaries. See the [instructions](../sujet.md) for suggestions on the projects to use.
 
 *Disclaimer* In a real project not all fields need to be accessed with a public getter.
+
+java -jar javaparser-starter-1.0-jar-with-dependencies.jar /Users/francoisrousseaux/Documents/M2\ CCN/VV/VV-ISTIC-TP2/exercises

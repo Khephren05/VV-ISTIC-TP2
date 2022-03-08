@@ -23,3 +23,44 @@ Use your rule with different projects and describe you findings below. See the [
 
 ## Answer
 
+L'expression que nous avons implémenté est la suivante :
+//IfStatement[.//IfStatement[.//IfStatement]]
+Elle relève bien la présence de 3 If imbriqués dans le code suivant : 
+
+public class QuestionUn{
+
+    private String x = "truc";
+    private String y = "Machin";
+    private String z = "chose";
+
+    public void methodeX(){
+        if(x!= y){
+            if(x=="lol"){
+                if(y=="paslol"){
+                    if(z=="plouf"){
+                        syteme.out.println("plifplouf");
+                    }
+                }
+        
+            }
+        syteme.out.println(this.x);
+        methodeY();
+        methodeZ();
+        }
+    }
+    public void methodeY(){
+        system.out.println(this.y);
+        methodeX();
+        methodeY();
+    }
+    public void methodeZ(){
+        system.out.println(this.z);
+        methodeX();
+        methodeY();
+    }
+
+    // Evidement on a une loop infinit
+}
+On relève donc 2 matchs puisque l'on a 4 if imbriqués. 
+En revanche l'export du fichier de règle XML est bugué.
+
