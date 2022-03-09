@@ -29,3 +29,11 @@ Include in this repository the code of your application. Remove all unnecessary 
 *Disclaimer* In a real project not all fields need to be accessed with a public getter.
 
 java -jar javaparser-starter-1.0-jar-with-dependencies.jar /Users/francoisrousseaux/Documents/M2\ CCN/VV/VV-ISTIC-TP2/exercises
+
+##Answers 
+
+La classe répondant à cette problématique est la classe PrivateElementsWithoutGetterPrinter, elle parcours les .java du 
+dossier fournit en paramètre et produit un fichier <folderName>Analysis.txt contenant la liste des variables privée n'ayant pas de getters
+en indiquant dans quelle classes ces variables sont situées. Ce fichier est généré à l'emplacement du code analysé. 
+
+Nous nous sommes basés sur les conventions de nommage afin de détecter l'absence de getter.

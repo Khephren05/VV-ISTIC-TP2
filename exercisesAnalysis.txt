@@ -1,0 +1,11 @@
+Located in package : /Users/francoisrousseaux/Documents/M2 CCN/VV/VV-ISTIC-TP2/exercises
+Located in class : Question4Test
+The code analysis revealed 2 privates instances variables without getters such as : 
+y
+z
+Located in package : /Users/francoisrousseaux/Documents/M2 CCN/VV/VV-ISTIC-TP2/exercises
+Located in class : QuestionUn
+The code analysis revealed 3 privates instances variables without getters such as : 
+x
+y
+z

@@ -12,20 +12,11 @@ import java.util.List;
 
 public class PrivateElementsWithoutGetterPrinter extends VoidVisitorWithDefaults<Void> {
     private String pathToResult;
+    private String fileName;
+    private File myObj;
     public PrivateElementsWithoutGetterPrinter(String path) {
         this.pathToResult=path;
-    }
-
-    @Override
-    public void visit(CompilationUnit unit, Void arg) {
-        for(TypeDeclaration<?> type : unit.getTypes()) {
-            type.accept(this, null);
-        }
-    }
-
-    public void visitTypeDeclaration(TypeDeclaration<?> declaration, Void arg) {
-        // creation du fichier d'écriture
-        String fileName = pathToResult+"Analysis.txt";
+        this.fileName = pathToResult+"Analysis.txt";
         try {
             File myObj = new File(fileName);
             if (myObj.createNewFile()) {
@@ -37,6 +28,30 @@ public class PrivateElementsWithoutGetterPrinter extends VoidVisitorWithDefaults
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void visit(CompilationUnit unit, Void arg) {
+        for(TypeDeclaration<?> type : unit.getTypes()) {
+            type.accept(this, null);
+        }
+    }
+
+    public void visitTypeDeclaration(TypeDeclaration<?> declaration, Void arg) {
+        // creation du fichier d'écriture
+        /*
+        String fileName = pathToResult+"Analysis.txt";
+        try {
+            File myObj = new File(fileName);
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        } */
 
         if(!declaration.isPublic()) return;
         List<String> variableList = new ArrayList<>();
@@ -49,7 +64,7 @@ public class PrivateElementsWithoutGetterPrinter extends VoidVisitorWithDefaults
             }
         }
         if(!variableList.isEmpty()){
-            issuesVariable = variableList;
+            issuesVariable.addAll(variableList);
             System.out.println("Looking for privates fields without getters : ");
             for(String varName : variableList){
                 for(MethodDeclaration method : declaration.getMethods()){
@@ -61,7 +76,10 @@ public class PrivateElementsWithoutGetterPrinter extends VoidVisitorWithDefaults
         }
         if(!issuesVariable.isEmpty()){
             try {
-                FileWriter myWriter = new FileWriter(fileName);
+                FileWriter myWriter = new FileWriter(fileName,true);
+                myWriter.write("Located in package : "+ pathToResult + "\n");
+                myWriter.write("Located in class : "+declaration.getNameAsString()+"\n");
+                System.out.println(declaration.getNameAsString());
                 myWriter.write("The code analysis revealed " + issuesVariable.size() +" privates instances " +
                         "variables without getters such as : \n");
                 for(String result : issuesVariable){
@@ -73,24 +91,7 @@ public class PrivateElementsWithoutGetterPrinter extends VoidVisitorWithDefaults
                 System.out.println("An error occurred.");
                 e.printStackTrace();
             }
-            /*
-            System.out.println("The code analysis revealed " + issuesVariable.size() +" privates intance " +
-                    "variables without getters such as : ");
-            for(String result : issuesVariable){
-                System.out.println(result);
-            }*/
         }
-
-        /*
-        System.out.println(declaration.getFullyQualifiedName().orElse("[Anonymous]"));
-        for(MethodDeclaration method : declaration.getMethods()) {
-            method.accept(this, arg);
-        }
-        // Printing nested types in the top level
-        for(BodyDeclaration<?> member : declaration.getMembers()) {
-            if (member instanceof TypeDeclaration)
-                member.accept(this, arg);
-        }*/
     }
 
     @Override
