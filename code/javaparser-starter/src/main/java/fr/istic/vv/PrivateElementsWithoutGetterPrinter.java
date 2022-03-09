@@ -38,21 +38,7 @@ public class PrivateElementsWithoutGetterPrinter extends VoidVisitorWithDefaults
     }
 
     public void visitTypeDeclaration(TypeDeclaration<?> declaration, Void arg) {
-        // creation du fichier d'écriture
-        /*
-        String fileName = pathToResult+"Analysis.txt";
-        try {
-            File myObj = new File(fileName);
-            if (myObj.createNewFile()) {
-                System.out.println("File created: " + myObj.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        } */
-
+        
         if(!declaration.isPublic()) return;
         List<String> variableList = new ArrayList<>();
         List<String> issuesVariable = new ArrayList<>();
