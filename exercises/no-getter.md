@@ -32,7 +32,7 @@ java -jar javaparser-starter-1.0-jar-with-dependencies.jar /Users/francoisrousse
 
 ##Answers 
 
-La classe répondant à cette problématique est la classe PrivateElementsWithoutGetterPrinter, elle parcours les .java du 
+La classe répondant à cette problématique est la classe [PrivateElementsWithoutGetterPrinter](../code/javaparser-starter/src/main/java/fr/istic/vv/PrivateElementsWithoutGetterPrinter.java), elle parcours les .java du 
 dossier fournit en paramètre et produit un fichier <folderName>Analysis.txt contenant la liste des variables privée n'ayant pas de getters
 en indiquant dans quelle classes ces variables sont situées. Ce fichier est généré à l'emplacement du code analysé. 
 
