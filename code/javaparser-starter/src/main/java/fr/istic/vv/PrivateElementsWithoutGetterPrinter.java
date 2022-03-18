@@ -14,9 +14,10 @@ public class PrivateElementsWithoutGetterPrinter extends VoidVisitorWithDefaults
     private String pathToResult;
     private String fileName;
     private File myObj;
+
     public PrivateElementsWithoutGetterPrinter(String path) {
-        this.pathToResult=path;
-        this.fileName = pathToResult+"Analysis.txt";
+        this.pathToResult = path;
+        this.fileName = pathToResult + "Analysis.txt";
         try {
             File myObj = new File(fileName);
             if (myObj.createNewFile()) {
@@ -32,43 +33,43 @@ public class PrivateElementsWithoutGetterPrinter extends VoidVisitorWithDefaults
 
     @Override
     public void visit(CompilationUnit unit, Void arg) {
-        for(TypeDeclaration<?> type : unit.getTypes()) {
+        for (TypeDeclaration<?> type : unit.getTypes()) {
             type.accept(this, null);
         }
     }
 
     public void visitTypeDeclaration(TypeDeclaration<?> declaration, Void arg) {
-        
-        if(!declaration.isPublic()) return;
+
+        if (!declaration.isPublic()) return;
         List<String> variableList = new ArrayList<>();
         List<String> issuesVariable = new ArrayList<>();
         // On parcours les fields pour trouver ceux qui sont private et on les met dans la liste
-        for(FieldDeclaration var : declaration.getFields()){
-            if(var.isPrivate()){
+        for (FieldDeclaration var : declaration.getFields()) {
+            if (var.isPrivate()) {
                 variableList.add(var.getVariable(0).getName().toString());
                 //System.out.println(var.getVariable(0).getName());
             }
         }
-        if(!variableList.isEmpty()){
+        if (!variableList.isEmpty()) {
             issuesVariable.addAll(variableList);
             System.out.println("Looking for privates fields without getters : ");
-            for(String varName : variableList){
-                for(MethodDeclaration method : declaration.getMethods()){
-                    if (method.getNameAsString().equalsIgnoreCase("get"+varName)){
+            for (String varName : variableList) {
+                for (MethodDeclaration method : declaration.getMethods()) {
+                    if (method.getNameAsString().equalsIgnoreCase("get" + varName)) {
                         issuesVariable.remove(varName);
                     }
                 }
             }
         }
-        if(!issuesVariable.isEmpty()){
+        if (!issuesVariable.isEmpty()) {
             try {
-                FileWriter myWriter = new FileWriter(fileName,true);
-                myWriter.write("Located in package : "+ pathToResult + "\n");
-                myWriter.write("Located in class : "+declaration.getNameAsString()+"\n");
+                FileWriter myWriter = new FileWriter(fileName, true);
+                myWriter.write("Located in package : " + pathToResult + "\n");
+                myWriter.write("Located in class : " + declaration.getNameAsString() + "\n");
                 System.out.println(declaration.getNameAsString());
-                myWriter.write("The code analysis revealed " + issuesVariable.size() +" privates instances " +
+                myWriter.write("The code analysis revealed " + issuesVariable.size() + " privates instances " +
                         "variables without getters such as : \n");
-                for(String result : issuesVariable){
+                for (String result : issuesVariable) {
                     myWriter.write(result + "\n");
                 }
                 myWriter.close();
@@ -92,7 +93,7 @@ public class PrivateElementsWithoutGetterPrinter extends VoidVisitorWithDefaults
 
     @Override
     public void visit(MethodDeclaration declaration, Void arg) {
-        if(!declaration.isPublic()) return;
+        if (!declaration.isPublic()) return;
         //System.out.println("  " + declaration.getDeclarationAsString(true, true));
     }
 }
