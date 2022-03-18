@@ -5,7 +5,7 @@ Pick a Java project from Github (see the [instructions](../sujet.md) for suggest
 ## Answer
 
 Nous avons deployé le l'analyse PMD sur le code récupéré ici : https://github.com/apache/commons-math
-L'analyse est située dans le fichier error.html généré par PMD. 
+L'analyse est située dans le fichier [error.html](exercises/error.html) généré par PMD. 
 
 L'analyse PMD a permis de mettre en evidence cette erreur : 	An instanceof check is being performed on the caught exception. Create a separate catch clause for this exception type.
 Le develloper a réalisé un catch prenant plusieurs types d'exeptions, mais réalise une traitement spécifique pour un des types d'exeption. Il faudrait réaliser un catch pour chacunes des exeptions. 
