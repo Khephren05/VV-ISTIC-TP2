@@ -26,7 +26,9 @@ Use your rule with different projects and describe you findings below. See the [
 L'expression que nous avons implémenté est la suivante :
 //IfStatement[.//IfStatement[.//IfStatement]]
 Elle relève bien la présence de 3 If imbriqués dans le code suivant : 
+[Code disponible ici](exercises/QuestionUn.java) 
 
+```java
 public class QuestionUn{
 
     private String x = "truc";
@@ -61,6 +63,7 @@ public class QuestionUn{
 
     // Evidement on a une loop infinit
 }
+``
 On relève donc 2 matchs puisque l'on a 4 if imbriqués. 
 En revanche l'export du fichier de règle XML est bugué.
 
